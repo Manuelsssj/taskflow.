@@ -91,6 +91,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             const SizedBox(height: 24),
             Wrap(
               spacing: 12,
+              runSpacing: 12,
               children: [
                 ElevatedButton.icon(
                   onPressed: _addTask,
