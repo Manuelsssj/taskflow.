@@ -29,7 +29,11 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
+  static const dailyGoal = 5;
+
   int pendingTasks = 3;
+  int completedTasks = 0;
+
   final String studentName = 'Manuel Intriago';
 
   void _addTask() {
@@ -45,6 +49,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
     setState(() {
       pendingTasks--;
+      if (completedTasks < dailyGoal) {
+        completedTasks++;
+      }
     });
   }
 
@@ -67,6 +74,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             ),
             const SizedBox(height: 12),
             Text(statusMessage),
+            Text('Completadas hoy: $completedTasks de $dailyGoal'),
             const SizedBox(height: 28),
             Card(
               child: Padding(
