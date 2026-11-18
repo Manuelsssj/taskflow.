@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:taskflow/main.dart';
+import 'package:taskflow/app/taskflow_app.dart';
 
 void main() {
   testWidgets('El panel permite agregar y completar tareas', (tester) async {
