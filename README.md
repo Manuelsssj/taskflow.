@@ -83,3 +83,40 @@ previstas para el proyecto.
 
 Las historias de crear, editar y eliminar tareas se implementarán
 en sesiones posteriores.
+
+## API de tareas
+
+TaskFlow consulta tareas de JSONPlaceholder mediante Dio.
+
+- Método HTTP: GET.
+- URL exacta: https://jsonplaceholder.typicode.com/todos?userId=2
+- Parámetro de consulta: userId=2, para obtener las tareas del usuario 2.
+- El valor elegido está definido en la constante userId de TaskApiService.
+
+### Campos recibidos
+
+La API entrega userId, id, title y completed.
+Task.fromJson convierte completed en isCompleted.
+
+### Valores predeterminados
+
+La API no entrega description ni priority. TaskFlow completa estos campos con:
+
+- description: "Sin descripción (API)".
+- priority: "Sin prioridad (API)".
+
+Estos valores los agrega la aplicación y no proceden del servidor.
+
+### Cambios de estado
+
+Marcar una tarea como completada o pendiente solo modifica la copia en memoria.
+No se envía una actualización al servidor. Al reiniciar la aplicación,
+se consultan nuevamente los datos originales de la API.
+
+### Recorrido de los datos
+
+TaskApiService conoce la URL y realiza la consulta HTTP con Dio.
+Task.fromJson convierte cada objeto JSON en una Task.
+RemoteTaskRepository obtiene las tareas del Service.
+TasksViewModel espera el resultado y llama a notifyListeners para actualizar
+las pantallas mediante Provider.
