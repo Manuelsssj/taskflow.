@@ -120,3 +120,31 @@ Task.fromJson convierte cada objeto JSON en una Task.
 RemoteTaskRepository obtiene las tareas del Service.
 TasksViewModel espera el resultado y llama a notifyListeners para actualizar
 las pantallas mediante Provider.
+
+## Estados de la lista de tareas
+
+TaskFlow distingue cuatro estados:
+
+- Carga: muestra un indicador y el mensaje "Cargando tus tareas...".
+  Mientras carga, el botón superior de actualización está deshabilitado.
+- Éxito: muestra las tareas remotas y permite abrir su detalle.
+- Vacío: muestra "No hay tareas para el usuario seleccionado."
+  y el botón Actualizar.
+- Error: muestra un mensaje comprensible y el botón Reintentar.
+
+### Cómo comprobar cada estado
+
+1. Éxito: con internet y userId=2, cargar el listado y abrir una tarea.
+2. Error: desconectar internet y pulsar Actualizar tareas.
+3. Reintento: recuperar internet y pulsar Reintentar.
+   La lista vuelve sin reiniciar la aplicación.
+4. Vacío: cambiar temporalmente userId a 9999 en TaskApiService
+   y reiniciar la aplicación.
+5. Carga: pulsar Actualizar tareas y observar el indicador.
+   Si la respuesta es muy rápida, limitar temporalmente la red
+   desde las herramientas de desarrollo de Chrome.
+
+Al finalizar las pruebas, restaurar userId=2 y quitar la limitación de red.
+
+Actualizar vuelve a consultar el servidor y puede reemplazar los cambios
+de estado realizados localmente.
